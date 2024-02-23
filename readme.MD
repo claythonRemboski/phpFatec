@@ -14,7 +14,7 @@ Este projeto foi desenvolvido para utilização em ambientes Linux, portanto cas
 ## 2. Passo a passo:
 
 1. Crie uma pasta em qualquer local de sua preferência. Essa pasta será onde estará hospedado nosso projeto.
-2. Através do terminal, acesse essa pasta e rode o comando `git clone git@github.com:claythonRemboski/phpFatec.git`, para baixar o projeto localmente.
+2. Através do terminal, acesse essa pasta e rode o comando `git clone git@github.com:claythonRemboski/phpFatec.git`, para baixar o projeto localmente. Após baixado, acesse também pelo terminal a pasta phpFatec.
 3. No arquivo docker-compose.yml, renomeie como preferir os valores de usuário do banco de dados, senha e database. Se alterar o nome do database, altere também no arquivo da pasta scripts, para evitar que seja criado um novo database.
 4. OBS: Em projetos reais, as práticas são diferentes, o arquivo .env normalmente fica com os dados armazenados, e referenciamos à ele. Além de o que sobe para o git é um .env.example.
 5. Verifique também no arquivo docker-compose.yml os valores para PGADMIN_DEFAULT_EMAIL e PGADMIN_DEFAULT_PASSWORD. Escolha um novo e-mail e senha que desejar.
