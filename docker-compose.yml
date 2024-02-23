@@ -1,0 +1,62 @@
+# docker-compose.yml
+
+version: '3'
+
+networks:
+  aulaPhpFatec:
+    external: true
+    name: aulaPhpFatec
+
+services:
+  postgres:
+    image: postgres:latest
+    networks:
+      - aulaPhpFatec
+    environment:
+      - POSTGRES_USER
+      - POSTGRES_PASSWORD
+      - POSTGRES_DB=${POSTGRES_DB}
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -h localhost -U ${POSTGRES_USER} -d ${POSTGRES_DB}']
+      interval: 5s
+      timeout: 5s
+      retries: 10
+    volumes:
+      - pg_data_fatec:/var/lib/postgresql/data
+
+  php-nginx:
+    image: nginx:latest
+    networks:
+      - aulaPhpFatec
+    ports:
+      - "80:80"
+    volumes:
+      - ./src:/var/www/html
+      - ./nginx/default.conf:/etc/nginx/conf.d/default.conf
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+  php-fpm:
+    image: php:8.2-fpm
+    networks:
+      - aulaPhpFatec
+    volumes:
+      - ./src:/var/www/html
+    depends_on:
+      - postgres
+
+  pgadmin:
+    image: dpage/pgadmin4:latest
+    container_name: pgadmin
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=pgadmin@email.com
+      - PGADMIN_DEFAULT_PASSWORD=senhapgadmin
+    ports:
+      - "5050:80"
+    volumes:
+      - pgadmin_data_fatec:/var/lib/pgadmin
+
+volumes:
+  pg_data_fatec:
+  pgadmin_data_fatec:
