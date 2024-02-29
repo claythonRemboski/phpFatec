@@ -1,7 +1,7 @@
 <html>
 
 <head>
-    <title>Desenv Web - Includes</title>
+    <title>Desenv Web</title>
 </head>
 
 <body style="text-align: center;">
