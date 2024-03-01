@@ -9,8 +9,8 @@ define(
     "http://" . $_SERVER["SERVER_NAME"] . SITE_SUBFOLDER
 );
 define("_DB_HOST", "localhost");
-define("_DB_USER", "root");
-define("_DB_PASS", "");
+define("_DB_USER", "userbanco");
+define("_DB_PASS", "senhabanco");
 define("_DB_NAME", "webdev");
-include(SITE_ROOT . "/classes/mysql.php");
+include(SITE_ROOT . "/classes/postgres.php");
 include(SITE_ROOT . "/functions/validate.php");

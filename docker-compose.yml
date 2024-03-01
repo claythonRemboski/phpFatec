@@ -13,18 +13,17 @@ services:
     networks:
       - aulaPhpFatec
     environment:
-      - POSTGRES_DB=db_aulafatec
+      - POSTGRES_DB=webdev
       - POSTGRES_USER=userbanco
       - POSTGRES_PASSWORD=senhabanco
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -h localhost -U ${POSTGRES_USER} -d ${POSTGRES_DB}"]
+      test: ["CMD-SHELL", "pg_isready -h localhost -U userbanco -d webdev"]
       interval: 5s
       timeout: 5s
       retries: 10
     command: ["postgres", "-c", "max_connections=300", "-c", "listen_addresses=*"]
     volumes:
       - ./data:/var/lib/postgresql/data
-      - ./scripts/create.sql:/docker-entrypoint-initdb.d/init.sql
     ports:
       - "5432:5432"
 
@@ -49,6 +48,7 @@ services:
       - ./src:/var/www/html
     depends_on:
       - postgres
+    command: ["bash", "-c", "docker-php-ext-install pdo_pgsql && php-fpm"]
 
   pgadmin:
     image: dpage/pgadmin4:latest

@@ -3,7 +3,7 @@ include("./conf/config.inc.php");
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     extract($_POST);
 if (validate_form($_POST, $error)) {
-$dbObj = new mysql();
+$dbObj = new PostgresDB();
 $sql = "";
 $sql .= " INSERT INTO client ";
 $sql .= " (name, date, entered) ";
@@ -25,7 +25,7 @@ echo "</span>";
 }
 ?>
 <form action="<?=SITE_URL?>/index.php" method="POST">
-<?php include(SITE_ROOT."/includes/formnewclient.php"); ?>
+<?php include(SITE_ROOT."/includes/form_newclient.php"); ?>
 </form>
 <?php
 include(SITE_ROOT."/layout/footer.php");

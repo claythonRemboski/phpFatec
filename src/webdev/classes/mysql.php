@@ -7,7 +7,7 @@ class mysql
         $this->db_user = constant("_DB_USER");
         $this->db_pass = constant("_DB_PASS");
         $this->db_name = constant("_DB_NAME");
-        $this->link_id = mysqli_connect($this->db_host, $this->db_user, $this->db_pass, $this->db_name);
+        $this->link_id = mysqli_connect($this->db_host, $this->db_user, $this->db_pass, $this->db_name,5432);
         if (!$this->link_id) {
             die("!\$this->link_id");
         }
