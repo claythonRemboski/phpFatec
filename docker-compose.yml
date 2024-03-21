@@ -41,14 +41,15 @@ services:
         condition: service_healthy
 
   php-fpm:
-    image: php:8.2-fpm
+    build:
+      context: .
+      dockerfile: Dockerfile
     networks:
       - aulaPhpFatec
     volumes:
       - ./src:/var/www/html
     depends_on:
       - postgres
-    command: ["bash", "-c", "docker-php-ext-install pdo_pgsql && php-fpm"]
 
   pgadmin:
     image: dpage/pgadmin4:latest

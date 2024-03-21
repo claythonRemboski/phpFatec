@@ -8,9 +8,9 @@ define(
     "SITE_URL",
     "http://" . $_SERVER["SERVER_NAME"] . SITE_SUBFOLDER
 );
-define("_DB_HOST", "localhost");
-define("_DB_USER", "userbanco");
-define("_DB_PASS", "senhabanco");
-define("_DB_NAME", "webdev");
+define("host", "postgres");
+define("user", "userbanco");
+define("password", "senhabanco");
+define("dbname", "webdev");
 include(SITE_ROOT . "/classes/postgres.php");
 include(SITE_ROOT . "/functions/validate.php");

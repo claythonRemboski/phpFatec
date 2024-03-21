@@ -1,9 +1,12 @@
 <?php
 include("./conf/config.inc.php");
+require_once("./classes/postgres.php");
+
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     extract($_POST);
 if (validate_form($_POST, $error)) {
-$dbObj = new PostgresDB();
+$dbObj = new Postgres();
 $sql = "";
 $sql .= " INSERT INTO client ";
 $sql .= " (name, date, entered) ";

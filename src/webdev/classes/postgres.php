@@ -1,31 +1,33 @@
 <?php
-class PostgresDB
+class Postgres
 {
-    private $db;
+    private $pdo;
 
     function __construct()
     {
-        $db_host = constant("_DB_HOST");
-        $db_user = constant("_DB_USER");
-        $db_pass = constant("_DB_PASS");
-        $db_name = constant("_DB_NAME");
-        $db_port = 5432; // Sua porta PostgreSQL
+        $dsn = 'pgsql:host=postgres;dbname=webdev;user=userbanco;password=senhabanco';
 
         try {
-            $this->db = new PDO("pgsql:host=$db_host;port=$db_port;dbname=$db_name;user=$db_user;password=$db_pass");
-            $this->db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            // Cria uma nova conexão PDO e armazena na propriedade $pdo
+            $this->pdo = new PDO($dsn);
+
+            // Configura o modo de erro do PDO para lançar exceções
+            $this->pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
         } catch (PDOException $e) {
-            die("Error: " . $e->getMessage());
+            // Em caso de erro, exibe a mensagem de erro
+            die("Erro na conexão: " . $e->getMessage());
         }
     }
 
     function query($query)
     {
         try {
-            $result = $this->db->query($query);
-            return $result;
+            $stmt = $this->pdo->query($query);
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
         } catch (PDOException $e) {
-            die("Query Error: " . $e->getMessage());
+            // Em caso de erro, exibe a mensagem de erro
+            die("Erro na execução da query: " . $e->getMessage());
         }
     }
 }
