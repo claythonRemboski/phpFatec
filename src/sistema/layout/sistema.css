@@ -1,0 +1,19 @@
+body {
+	background-color: #2b2d42;
+	/* Cor de fundo suave */
+	color: #e0e1dd;
+	/* Cor do texto neutra para melhor contraste */
+	font-family: Arial, sans-serif;
+	/* Fonte mais comum e legível */
+	margin: 0;
+	/* Remover margens padrão */
+	padding: 0;
+	/* Remover preenchimento padrão */
+	align-items: center;
+	justify-content: center;
+	height: 100vh;
+	margin: 0;
+	font-family: Arial, sans-serif;
+	flex-direction: column;
+	display: flex;
+}
