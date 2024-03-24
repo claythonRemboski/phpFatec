@@ -1,31 +1,37 @@
 <?php
 
-function contaValida($username, $password) {
-	$dbObj = new mysql();
-	$sql = "SELECT * FROM conta WHERE usuario = '".$username."' AND senha = MD5('$password')";
-	$result = $dbObj->query($sql);
+function contaValida($username, $password)
+{
+	$dbObj = new Postgres();
+	$sql = "SELECT * FROM conta WHERE usuario = :username AND senha = MD5(:password)";
+	$params = array(':username' => $username, ':password' => $password);
+	$result = $dbObj->query($sql, $params);
 	if ($result) {
-		if ($row = mysqli_fetch_assoc($result)) {
+		if (!empty($result)) {
 			return true;
 		}
 	}
 	return false;
 }
 
-function registraConta($username) {
+
+function registraConta($username)
+{
 	session_start();
 	session_unset();
-	$dbObj = new mysql();
-	$sql = "SELECT * FROM conta WHERE usuario = '".$username."'";
-	$result = $dbObj->query($sql);
+	$dbObj = new Postgres();
+	$sql = "SELECT * FROM conta WHERE usuario = :username";
+	$params = array(':username' => $username);
+	$result = $dbObj->query($sql, $params);
 	if ($result) {
-		if ($row = mysqli_fetch_assoc($result)) {
+		if ($row = $result[0]) {
 			$_SESSION["CONTA_ID"] = $row["id"];
 		}
 	}
 }
 
-function logout() {
+function logout()
+{
 	session_start();
 	session_unset();
 	session_destroy();
@@ -33,12 +39,11 @@ function logout() {
 	exit;
 }
 
-function validaSessao() {
+function validaSessao()
+{
 	session_start();
 	if (empty($_SESSION["CONTA_ID"])) {
 		header("Location: ./login.php");
 		exit;
 	}
 }
-
-?>

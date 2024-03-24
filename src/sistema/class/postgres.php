@@ -13,17 +13,17 @@ class Postgres
 
             // Configura o modo de erro do PDO para lançar exceções
             $this->pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-
         } catch (PDOException $e) {
             // Em caso de erro, exibe a mensagem de erro
             die("Erro na conexão: " . $e->getMessage());
         }
     }
 
-    function query($query)
+    function query($query, $params = [])
     {
         try {
-            $stmt = $this->pdo->query($query);
+            $stmt = $this->pdo->prepare($query);
+            $stmt->execute($params);
             return $stmt->fetchAll(PDO::FETCH_ASSOC);
         } catch (PDOException $e) {
             // Em caso de erro, exibe a mensagem de erro
