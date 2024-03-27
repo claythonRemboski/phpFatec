@@ -42,7 +42,7 @@ function validaSessao()
 {
 	session_start();
 	if (empty($_SESSION["CONTA_ID"])) {
-		header("Location: ./login.php");
+		header("Location: " . LOGIN_PATH);
 		exit;
 	}
 }

@@ -2,6 +2,7 @@
 define("SITE_SUBFOLDER", "/sistema");
 define("SITE_ROOT", $_SERVER["DOCUMENT_ROOT"] . SITE_SUBFOLDER);
 define("SITE_URL", "http://" . $_SERVER["SERVER_NAME"] . SITE_SUBFOLDER);
+define("LOGIN_PATH", SITE_URL . "/admin/login.php");
 define("host", "postgres");
 define("user", "userbanco");
 define("password", "senhabanco");

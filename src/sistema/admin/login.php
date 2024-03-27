@@ -1,7 +1,7 @@
 <?php
 
-include("../config/config.php");
-include(SITE_ROOT . "/admin/config/config.php");
+include_once($_SERVER["DOCUMENT_ROOT"] . "/sistema/config/config.php");
+include_once(SITE_ROOT . "/admin/config/config.php");
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 	if (contaValida($_POST["username"], $_POST["password"])) {
