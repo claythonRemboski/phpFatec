@@ -1,13 +1,21 @@
 <?php
-
+session_start();
 include_once($_SERVER["DOCUMENT_ROOT"] . "/sistema/config/config.php");
 include_once(SITE_ROOT . "/admin/config/config.php");
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 	if (contaValida($_POST["username"], $_POST["password"])) {
 		registraConta($_POST["username"]);
-		header("Location: ./index.php");
-		exit;
+		// Redireciona o usuário para a página anteriormente acessada
+		if (isset($_SESSION['RETURN_URL'])) {
+			$return_url = $_SESSION['RETURN_URL'];
+			unset($_SESSION['RETURN_URL']);
+			header("Location: " . REDIRECT_URL . $return_url);
+			exit;
+		} else {
+			header("Location: " . SITE_URL . "/admin/index.php");
+			exit;
+		}
 	}
 	$username = $_POST["username"];
 	$mensagem = "Usuario ou Senha incorreto(s)!";
@@ -17,6 +25,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 include(SITE_ROOT . "/layout/header.php");
 
 ?>
+
 <link rel="stylesheet" type="text/css" href="<?= SITE_URL; ?>/layout/login.css">
 
 <form name="formLogin" method="POST" class="login-form">

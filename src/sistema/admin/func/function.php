@@ -17,8 +17,8 @@ function contaValida($username, $password)
 
 function registraConta($username)
 {
-	session_start();
-	session_unset();
+	//session_start();
+	//session_unset();
 	$dbObj = new Postgres();
 	$sql = "SELECT * FROM conta WHERE usuario = :username";
 	$params = array(':username' => $username);
@@ -37,11 +37,12 @@ function logout()
 	header("Location: " . LOGIN_PATH);
 	exit;
 }
-
+//var_dump($_SESSION['RETURN_URL']); Usei o vardump para verificar a url que estava sendo definida
 function validaSessao()
 {
 	session_start();
 	if (empty($_SESSION["CONTA_ID"])) {
+		$_SESSION['RETURN_URL'] = $_SERVER['REQUEST_URI'];
 		header("Location: " . LOGIN_PATH);
 		exit;
 	}
